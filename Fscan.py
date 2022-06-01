@@ -43,8 +43,11 @@ def checkClashes(path1, path2, day) -> list:
     return clashes
 
 
-# pprint(checkClashes1(r"C:\Users\abhin\OneDrive\Desktop\SchoolData\Bini P Kuriakose.xlsx",
-#        r"C:\Users\abhin\OneDrive\Desktop\SchoolData\Bini P Kuriakose.xlsx", 5, 'Tuesday'))
+# res = checkClashes(r"C:\Users\abhin\OneDrive\Desktop\SchoolData\Bini P Kuriakose.xlsx",
+#                    r"C:\Users\abhin\OneDrive\Desktop\SchoolData\Bini P Kuriakose.xlsx", 'Tuesday')
+
+# pprint(res)
+
 
 def viewFreeAndBusy(folder, day, period_number, view_busy=False) -> list:
     files = listdir(folder)

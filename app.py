@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from Fscan import checkClashes, viewFreeAndBusy
+from Fscan import checkClashes, viewFreeAndBusy, readWorkbook
 from os import listdir
 from sys import exit
 
@@ -73,9 +73,14 @@ def main_window(list_of_files, folder) -> None:
             continue
 
         if event == 'Ok':
-            if fn1:
-                res = checkClashes(
-                    f'{folder}\{f1}', f'{folder}\{f2}', day[0])
+            try:
+                if fn1 == True:
+                    res = checkClashes(
+                        f'{folder}/{f1}', f'{folder}/{f2}', str(day[0]))
+            except KeyError:
+                sg.popup(
+                    'No periods on this day', title='Error')
+                continue
 
             if fn2:
                 try:
@@ -83,6 +88,14 @@ def main_window(list_of_files, folder) -> None:
                         folder=folder, day=day[0], period_number=int(period), view_busy=False)
                 except ValueError:
                     sg.popup('Enter a value for the period', title='Error')
+                    continue
+                except IndexError:
+                    sg.popup(
+                        'Enter a value for the period within the correct number of periods', title='Error')
+                    continue
+                except KeyError:
+                    sg.popup(
+                        'No periods on this day', title='Error')
                     continue
 
             if fn3:
@@ -92,6 +105,14 @@ def main_window(list_of_files, folder) -> None:
                 except ValueError:
                     sg.popup('Enter a correct value for the period',
                              title='Error')
+                    continue
+                except IndexError:
+                    sg.popup(
+                        'Enter a value for the period within the correct number of periods', title='Error')
+                    continue
+                except KeyError:
+                    sg.popup(
+                        'No periods on this day', title='Error')
                     continue
 
         if len(res) != 0:
